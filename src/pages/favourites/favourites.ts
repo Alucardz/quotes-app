@@ -1,3 +1,4 @@
+import { SettingsService } from './../../services/settings';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map'
 import { Response, Http } from '@angular/http';
@@ -14,7 +15,9 @@ import { ModalController } from 'ionic-angular';
 export class FavouritesPage {
   quotes: Quote[];
 
-  constructor(private quotesService: QuotesService, private modalCtrl: ModalController) {
+  constructor(private quotesService: QuotesService, 
+  private modalCtrl: ModalController,
+  private settingsService: SettingsService) {
 
   }
 
@@ -28,11 +31,26 @@ export class FavouritesPage {
     const modal = this.modalCtrl.create(QuotePage, q);
     modal.present();
     modal.onDidDismiss((unfavorite: boolean) => {
-      if(unfavorite)
-      {
-        this.quotesService.removeQuoteFromFavorites(q);
+      console.log('onDidDismiss:' + unfavorite)
+      if (unfavorite) {
+        this.onRemoveFromFavorites(q);
       }
     })
+    modal.willLeave.subscribe((unfavorite: boolean) => {
+      console.log('willLeave:' + unfavorite)
+    });
+  }
 
+  onRemoveFromFavorites(q: Quote) {
+    this.quotesService.removeQuoteFromFavorites(q);
+    this.quotes = this.quotesService.getFavoriteQuotes();
+  }
+
+  getBackground() {
+    return this.settingsService.isAltBackground() ? 'altQuoteBackground' : 'quoteBackground'
+  }
+
+  isAltBackground() {
+    return this.settingsService.isAltBackground();
   }
 }

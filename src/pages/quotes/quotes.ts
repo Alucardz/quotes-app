@@ -22,12 +22,12 @@ export class QuotesPage {
     public navParams: NavParams,
     private alertCtrl: AlertController,
     private quotesService: QuotesService
-    ) {
+  ) {
     this.quotes = navParams.data.quotes;
     this.categoryTitle = navParams.data.category;
   }
 
-  onAddToFavorite(selectedQuote: Quote) {
+  onAddToFavorites(selectedQuote: Quote) {
     const alert = this.alertCtrl.create({
       title: "Add Quote",
       subTitle: "Are you sure?",
@@ -47,8 +47,17 @@ export class QuotesPage {
       }]
     });
 
+
+
     alert.present();
   }
 
+  onRemoveFromFavorite(q: Quote) {
+    return this.quotesService.removeQuoteFromFavorites(q);
+  }
+
+  isFavorite(q: Quote) {
+    return this.quotesService.isQuoteFavorite(q);
+  }
 
 }

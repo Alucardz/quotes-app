@@ -1,3 +1,4 @@
+import { SettingsService } from './../services/settings';
 import { JsonpModule } from '@angular/http';
 import { QuotesService } from './../services/quotes';
 import { QuotePage } from './../pages/quote/quote';
@@ -34,6 +35,8 @@ import { MyApp } from './app.component';
     QuotesPage,
     QuotePage
   ],
-  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, QuotesService]
+  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler },
+    QuotesService,
+    SettingsService]
 })
 export class AppModule { }

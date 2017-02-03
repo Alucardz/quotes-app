@@ -6,17 +6,36 @@
 -->
 <ion-header>
   <ion-navbar>
-    <button ion-button menuToggle>
+    <ion-buttons left>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <!--<ion-buttons end>
+      <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
-    </button>
+      </button>
+    </ion-buttons>-->
     <ion-title>Favourite Quotes</ion-title>
   </ion-navbar>
 </ion-header>
 <ion-content padding>
   <ion-list mode="ios">
-    <ion-item *ngFor="let q of quotes" (click)="onViewQuote(q)">
-      <h2>{{q.person}}</h2>
-      <p>{{q.text}}</p>
-    </ion-item>
+    <!-- ion-item-sliding & ion-item-options work together -->
+    <ion-item-sliding *ngFor="let q of quotes">
+      <!--[color]="getBackground()"-->
+      <ion-item color="quoteBackground"
+        [ngClass]="{alt: isAltBackground()}"
+       (click)="onViewQuote(q)">
+        <h2>{{q.person}}</h2>
+        <p>{{q.text}}</p>
+      </ion-item>
+      <ion-item-options>
+        <button ion-button color="danger" (click)="onRemoveFromFavorites(q)">
+          <ion-icon name="trash"></ion-icon>
+          Delete
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
 </ion-content>

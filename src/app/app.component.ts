@@ -1,7 +1,7 @@
 import { SettingsPage } from './../pages/settings/settings';
 import { TabsPage } from './../pages/tabs/tabs';
 import { Component, ViewChild } from '@angular/core';
-import { Platform, Nav, MenuController } from 'ionic-angular';
+import { Platform, MenuController, NavController } from 'ionic-angular';
 import { StatusBar } from 'ionic-native';
 
 
@@ -9,13 +9,13 @@ import { StatusBar } from 'ionic-native';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  @ViewChild(Nav) nav: Nav;
+  @ViewChild('navElement') nav: NavController;
 
   // make HelloIonicPage the root (or first) page
   // rootPage: any = HelloIonicPage;
   rootPage: any = TabsPage;
   pages: Array<{title: string, icon: string, component: any}>;
-
+ 
   constructor(
     public platform: Platform,
     public menu: MenuController
